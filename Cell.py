@@ -16,13 +16,3 @@ class Cell:
     def draw(self):
         pass
 
-    def vibe_check(self):
-#hello world
-        pass
-
-
-
-#Hello Everyone
-#piercewashere
-
-#Hello World
