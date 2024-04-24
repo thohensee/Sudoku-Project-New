@@ -96,6 +96,7 @@ while True:
             # print(row, col)
             if available_square(board, row, col):
                 mark_square(board, row, col, chip)
+                num_choice = input("Please enter a number between 1 and 9: ")
                 if check_if_winner(board, chip):
                     game_over = True
                     winner = player
@@ -105,7 +106,7 @@ while True:
                         winner = 0  # indicate tie
                 # alternate the players and corresponding chips/marks "x" or "o"
                 player = 2 if player == 1 else 1
-                chip = 'o' if chip == 'x' else 'x'
+                chip = num_choice
 
                 draw_chips()
 
