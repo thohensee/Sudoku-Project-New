@@ -1,0 +1,24 @@
+Decoding Menu
+-------------
+1. Decode hexadecimal
+2. Decode binary
+3. Convert binary to hexadecimal
+4. Quit
+
+Please enter an option: 
+
+Please enter the numeric string to convert: 
+
+Result: 139
+
+Decoding Menu
+-------------
+1. Decode hexadecimal
+2. Decode binary
+3. Convert binary to hexadecimal
+4. Quit
+
+Please enter an option: 
+
+
+Goodbye!
