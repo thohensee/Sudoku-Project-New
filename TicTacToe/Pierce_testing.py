@@ -48,9 +48,9 @@ def draw_board():
     screen.fill(WHITE)
     for i in range(side + 1):
         if i % base == 0:
-            line_thickness = 4
+            line_thickness = 11
         else:
-            line_thickness = 1
+            line_thickness = 5
         pygame.draw.line(screen, BLACK, (i * CELL_SIZE, 0), (i * CELL_SIZE, WINDOW_SIZE[1]), line_thickness)
         pygame.draw.line(screen, BLACK, (0, i * CELL_SIZE), (WINDOW_SIZE[0], i * CELL_SIZE), line_thickness)
 
