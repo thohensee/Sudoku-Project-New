@@ -3,7 +3,9 @@
 # Current issues:
 # no win screen
 # overwriting generated squares is possible (it shouldn't be)
-# A lot of this stuff will have to be sorted into classes
+# A lot of this stuff will have to be sorted into classes, but we can do that at the end
+# Might need a function to solve the board
+
 
 
 import pygame
