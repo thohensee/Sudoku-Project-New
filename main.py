@@ -88,7 +88,6 @@ for i in range(9):
         if board[i][j] != 0:
             nonChange[i][j] = 1
 
-print(nonChange)
 
 while running:
     for event in pygame.event.get():
