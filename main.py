@@ -78,6 +78,21 @@ def draw_board():
 running = True
 selected_row = None
 selected_col = None
+
+nonChange = []
+for i in range(9):
+    row = []
+    for i in range(9):
+        row.append(0)
+    nonChange.append(row)
+
+for i in range(9):
+    for j in range(9):
+        if board[i][j] != 0:
+            nonChange[i][j] = 1
+
+print(nonChange)
+
 while running:
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -87,33 +102,34 @@ while running:
             selected_row = mouse_pos[1] // CELL_SIZE
             selected_col = mouse_pos[0] // CELL_SIZE
         elif event.type == KEYDOWN:
-            if event.key == K_1 or event.key == K_KP1:
-                if selected_row is not None and selected_col is not None:
-                    board[selected_row][selected_col] = 1
-            elif event.key == K_2 or event.key == K_KP2:
-                if selected_row is not None and selected_col is not None:
-                    board[selected_row][selected_col] = 2
-            elif event.key == K_3 or event.key == K_KP3:
-                if selected_row is not None and selected_col is not None:
-                    board[selected_row][selected_col] = 3
-            elif event.key == K_4 or event.key == K_KP4:
-                if selected_row is not None and selected_col is not None:
-                    board[selected_row][selected_col] = 4
-            elif event.key == K_5 or event.key == K_KP5:
-                if selected_row is not None and selected_col is not None:
-                    board[selected_row][selected_col] = 5
-            elif event.key == K_6 or event.key == K_KP6:
-                if selected_row is not None and selected_col is not None:
-                    board[selected_row][selected_col] = 6
-            elif event.key == K_7 or event.key == K_KP7:
-                if selected_row is not None and selected_col is not None:
-                    board[selected_row][selected_col] = 7
-            elif event.key == K_8 or event.key == K_KP8:
-                if selected_row is not None and selected_col is not None:
-                    board[selected_row][selected_col] = 8
-            elif event.key == K_9 or event.key == K_KP9:
-                if selected_row is not None and selected_col is not None:
-                    board[selected_row][selected_col] = 9
+            if nonChange[selected_row][selected_col] == 0:
+                if event.key == K_1 or event.key == K_KP1:
+                    if selected_row is not None and selected_col is not None:
+                        board[selected_row][selected_col] = 1
+                elif event.key == K_2 or event.key == K_KP2:
+                    if selected_row is not None and selected_col is not None:
+                        board[selected_row][selected_col] = 2
+                elif event.key == K_3 or event.key == K_KP3:
+                    if selected_row is not None and selected_col is not None:
+                        board[selected_row][selected_col] = 3
+                elif event.key == K_4 or event.key == K_KP4:
+                    if selected_row is not None and selected_col is not None:
+                        board[selected_row][selected_col] = 4
+                elif event.key == K_5 or event.key == K_KP5:
+                    if selected_row is not None and selected_col is not None:
+                        board[selected_row][selected_col] = 5
+                elif event.key == K_6 or event.key == K_KP6:
+                    if selected_row is not None and selected_col is not None:
+                        board[selected_row][selected_col] = 6
+                elif event.key == K_7 or event.key == K_KP7:
+                    if selected_row is not None and selected_col is not None:
+                        board[selected_row][selected_col] = 7
+                elif event.key == K_8 or event.key == K_KP8:
+                    if selected_row is not None and selected_col is not None:
+                        board[selected_row][selected_col] = 8
+                elif event.key == K_9 or event.key == K_KP9:
+                    if selected_row is not None and selected_col is not None:
+                        board[selected_row][selected_col] = 9
     draw_board()
     pygame.display.update()
 
