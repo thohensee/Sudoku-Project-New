@@ -14,5 +14,13 @@ class Cell:
 
 
     def draw(self):
+        pass
+
+    def vibe_check(self):
+
+        pass
+
+
+
 
 
