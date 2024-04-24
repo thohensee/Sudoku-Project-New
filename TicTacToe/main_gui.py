@@ -1,7 +1,7 @@
 import pygame, sys
 from constants import *
 
-from tictactoe import *
+from sudoku import *
 
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
