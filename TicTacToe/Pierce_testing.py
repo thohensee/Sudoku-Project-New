@@ -23,7 +23,7 @@ board = [ [nums[pattern(r,c)] for c in cols] for r in rows ]
 
 squares = side*side
 empties = squares * 3//4
-
+#add difficulties
 for p in sample(range(squares),empties):
     board[p//side][p%side] = 0
 
