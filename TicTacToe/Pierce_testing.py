@@ -6,7 +6,9 @@ from pygame.locals import *
 base  = 3
 side  = base*base
 
+
 def pattern(r,c): return (base*(r%base)+r//base+c)%side
+#this is where the different difficulties might come in
 
 from random import sample
 
@@ -101,6 +103,7 @@ while running:
                     board[selected_row][selected_col] = 9
     draw_board()
     pygame.display.update()
+
 
 pygame.quit()
 sys.exit()
