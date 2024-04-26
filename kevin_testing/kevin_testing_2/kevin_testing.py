@@ -45,16 +45,43 @@ def main_menu():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if EASY_BUTTON.checkInput(MENU_MOUSE_POS):
-                    pass
+                    win()
                 if MEDIUM_BUTTON.checkInput(MENU_MOUSE_POS):
                     pass
                 if HARD_BUTTON.checkInput(MENU_MOUSE_POS):
-                    pass
+                    lose()
 
         pygame.display.update()
 
 def win():
-    pass
+    while True:
+        WIN_MOUSE_POS =  pygame.mouse.get_pos()
+
+        SCREEN.fill("black")
+        SCREEN.blit(BG, (0,0))
+
+        WIN_TEXT = get_font(50).render("Game Won!", True, (0,0,0))
+        WIN_RECT = WIN_TEXT.get_rect(center=(300,250))
+
+        WIN_EXIT = Button(image=pygame.image.load("assets/button_shape.png"), pos=(300,450),
+                          text_input="EXIT", font=get_font(35), base_color=(0,0,0), hovering_color="Red")
+
+        for button in [WIN_EXIT]:
+            button.changeColor(WIN_MOUSE_POS)
+            button.update(SCREEN)
+
+        SCREEN.blit(WIN_TEXT, WIN_RECT)
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if WIN_EXIT.checkInput(WIN_MOUSE_POS):
+                    pygame.quit()
+                    sys.exit()
 
 def lose():
     pass
