@@ -34,7 +34,7 @@ nums  = shuffle(range(1,base*base+1))
 
 board = [ [nums[pattern(r,c)] for c in cols] for r in rows ]
 
-#medium is squares * 1//2, easy is squares * 1//2.7, hard is squares * 2//3.2 .
+#medium is squares * 1//2, easy is squares * 1//2.7, hard is squares * 2//3.2
 squares = side*side
 empties = squares * 1//2
 #add difficulties
