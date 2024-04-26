@@ -1,3 +1,5 @@
+# MAIN
+
 from pygame.locals import *
 from SudokuGenerator import *  # Import shuffle function from t_SudokuGenerator
 from Board import Board

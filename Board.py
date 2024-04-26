@@ -1,3 +1,5 @@
+# BOARD
+
 from SudokuGenerator import *
 from SudokuGenerator import shuffle
 import pygame

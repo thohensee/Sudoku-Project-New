@@ -1,3 +1,5 @@
+# SUDOKUGENERATOR
+
 import sys
 import pygame
 from random import sample
