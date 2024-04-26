@@ -84,7 +84,33 @@ def win():
                     sys.exit()
 
 def lose():
-    pass
+    while True:
+        LOSE_MOUSE_POS = pygame.mouse.get_pos()
+
+        SCREEN.fill("black")
+        SCREEN.blit(BG, (0,0))
+
+        LOSE_TEXT = get_font(50).render("Game over :(", True, (0,0,0))
+        LOSE_RECT = LOSE_TEXT.get_rect(center=(300,250))
+
+        LOSE_RESTART = Button(image=pygame.image.load("assets/button_shape.png"), pos=(300,450),
+                              text_input="RESTART", font=get_font(35), base_color=(0,0,0), hovering_color="Green")
+
+        for button in [LOSE_RESTART]:
+            button.changeColor(LOSE_MOUSE_POS)
+            button.update(SCREEN)
+
+        SCREEN.blit(LOSE_TEXT, LOSE_RECT)
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if LOSE_RESTART.checkInput(LOSE_MOUSE_POS):
+                    main_menu()
 
 if __name__ == "__main__":
     main_menu()
