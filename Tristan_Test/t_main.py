@@ -79,3 +79,4 @@ while running:
                         board.get_board()[selected_row][selected_col] = 9
 
     draw_board(screen, board)
+    pygame.display.flip()

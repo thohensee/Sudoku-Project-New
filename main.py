@@ -1,5 +1,3 @@
-
-
 # Current issues:
 # no win screen
 # overwriting generated squares is possible (it shouldn't be) (DONE)
