@@ -1,10 +1,9 @@
 import sys
 import pygame
-from t_main import *
 from random import sample
 
-# Pygame initialization
-pygame.init()
+base = 3
+side = 9
 
 # Colors
 WHITE = (255, 255, 255)
@@ -15,8 +14,11 @@ WINDOW_SIZE = (400, 400)
 
 # Cell size
 CELL_SIZE = WINDOW_SIZE[0] // side
+
+def shuffle(s): return sample(s,len(s))
+
 # Function to draw the Sudoku board
-def draw_board():
+def draw_board(screen, board):
     screen.fill(WHITE)
     for i in range(side + 1):
         if i % base == 0:
@@ -29,12 +31,10 @@ def draw_board():
     font = pygame.font.Font(None, 36)
     for i in range(side):
         for j in range(side):
-            if board[i][j] != 0:
-                text_surface = font.render(str(board[i][j]), True, BLACK)
+            if board.get_board()[i][j] != 0:
+                text_surface = font.render(str(board.get_board()[i][j]), True, BLACK)
                 text_rect = text_surface.get_rect(center=(j * CELL_SIZE + CELL_SIZE // 2, i * CELL_SIZE + CELL_SIZE // 2))
                 screen.blit(text_surface, text_rect)
 
 def pattern(r, c): return (base * (r % base) + r // base + c) % side
 # this is where the different difficulties might come in
-
-def shuffle(s): return sample(s,len(s))
