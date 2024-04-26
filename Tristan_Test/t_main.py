@@ -4,8 +4,32 @@ from pygame.locals import *
 from t_SudokuGenerator import *  # Import shuffle function from t_SudokuGenerator
 from t_Board import Board
 
+
+# Sudoku generating code
+base = 3
+side = 9
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+
+# Window size
+WINDOW_SIZE = (400, 400)
+
+# Cell size
+CELL_SIZE = WINDOW_SIZE[0] // side
+
 # Pygame initialization
 pygame.init()
+
+board = Board(base, side)
+
+#medium is squares * 1//2, easy is squares * 1//2.7, hard is squares * 2//3.2 .
+squares = side*side
+empties = squares * 1//2
+#add difficulties
+for p in sample(range(squares),empties):
+    board.get_board()[p//side][p%side] = 0
 
 # Initialize the screen
 screen = pygame.display.set_mode(WINDOW_SIZE)
@@ -14,12 +38,6 @@ pygame.display.set_caption("Sudoku")
 running = True
 selected_row = None
 selected_col = None
-
-# Sudoku generating code
-base = 3
-side = 9
-
-board = Board(base, side)
 
 while running:
     for event in pygame.event.get():

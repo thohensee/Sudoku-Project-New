@@ -1,5 +1,6 @@
 from t_SudokuGenerator import *
 from t_SudokuGenerator import shuffle
+import pygame
 class Board:
 
     def __init__(self, base, side):
