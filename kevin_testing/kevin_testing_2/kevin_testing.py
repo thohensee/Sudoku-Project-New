@@ -13,6 +13,9 @@ def get_font(size):
 
 def main_menu():
     while True:
+        og_button = pygame.image.load("assets/button_shape.png")
+        scaled_button = pygame.transform.scale(og_button, (100, 50))
+
         SCREEN.blit(BG, (0,0))
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
@@ -29,8 +32,10 @@ def main_menu():
                                text_input="MEDIUM", font=get_font(35), base_color=(0,0,0), hovering_color="Orange")
         HARD_BUTTON = Button(image=pygame.image.load("assets/button_shape.png"), pos=(500, 400),
                              text_input="HARD", font=get_font(35), base_color=(0,0,0), hovering_color="Red")
+        EXIT_BUTTON = Button(image=scaled_button, pos=(300, 550),
+                               text_input="EXIT", font=get_font(30), base_color=(0, 0, 0), hovering_color="Red")
 
-        for button in [EASY_BUTTON, MEDIUM_BUTTON, HARD_BUTTON]:
+        for button in [EASY_BUTTON, MEDIUM_BUTTON, HARD_BUTTON, EXIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(SCREEN)
 
@@ -50,6 +55,9 @@ def main_menu():
                     in_game()
                 if HARD_BUTTON.checkInput(MENU_MOUSE_POS):
                     lose()
+                if EXIT_BUTTON.checkInput(MENU_MOUSE_POS):
+                    pygame.quit()
+                    sys.exit()
 
         pygame.display.update()
 
@@ -63,11 +71,11 @@ def in_game():
 
         scaled_button = pygame.transform.scale(og_button,(100, 50))
 
-        IG_RESTART = Button(image=scaled_button, pos=(300,450),
+        IG_RESTART = Button(image=scaled_button, pos=(300,560),
                             text_input="Restart", font=get_font(30), base_color=(0,0,0), hovering_color="Orange")
-        IG_EXIT = Button(image=scaled_button, pos=(400,450),
+        IG_EXIT = Button(image=scaled_button, pos=(500,560),
                             text_input="Exit", font=get_font(30), base_color=(0,0,0), hovering_color="Red")
-        IG_RESET = Button(image=scaled_button, pos=(200, 450),
+        IG_RESET = Button(image=scaled_button, pos=(100, 560),
                          text_input="Reset", font=get_font(30), base_color=(0, 0, 0), hovering_color="Green")
 
         for button in [IG_RESTART, IG_EXIT, IG_RESET]:
