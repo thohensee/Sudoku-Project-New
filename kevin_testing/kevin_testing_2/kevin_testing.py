@@ -1,50 +1,63 @@
 import pygame, sys
-from constants_k import *
-import button
+from button import Button
 
 pygame.init()
 
-# Game Window
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+SCREEN = pygame.display.set_mode((600, 600))
 pygame.display.set_caption("Sudoku")
 
-# Variables
-game_paused = False
+BG = pygame.image.load("assets/sudoku_bg.png")
 
-# Load Buttons
-resume_img = pygame.image.load("images/resume_button.png").convert_alpha()
+def get_font(size):
+    return pygame.font.SysFont("palatinolinotype", size)
 
-# Display Buttons
-resume_button = button.Button(275, 275, resume_img, 1)
+def main_menu():
+    while True:
+        SCREEN.blit(BG, (0,0))
 
-# Fonts
-font = pygame.font.SysFont("gabriola",40)
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-def display_text(text, font, text_color, x, y):
-    img = font.render(text, True, text_color)
-    screen.blit(img, (x, y))
+        MENU_TEXT = get_font(50).render("WELCOME TO SUDOKU!", True, (0, 0, 0))
+        MENU_GAME_MODE = get_font(35).render("Select Game Mode:", True, (0, 0, 0))
 
-# Game Loop
-run = True
-while run:
+        MENU_TEXT_RECT = MENU_TEXT.get_rect(center=(300, 75))
+        MENU_GAME_MODE_RECT = MENU_GAME_MODE.get_rect(center=(300, 320))
 
-    screen.fill((200, 255, 200))
+        EASY_BUTTON = Button(image=pygame.image.load("assets/button_shape.png"), pos=(100,400),
+                             text_input="EASY", font=get_font(35), base_color=(0,0,0), hovering_color="Green")
+        MEDIUM_BUTTON = Button(image=pygame.image.load("assets/button_shape.png"), pos=(300,400),
+                               text_input="MEDIUM", font=get_font(35), base_color=(0,0,0), hovering_color="Orange")
+        HARD_BUTTON = Button(image=pygame.image.load("assets/button_shape.png"), pos=(500, 400),
+                             text_input="HARD", font=get_font(35), base_color=(0,0,0), hovering_color="Red")
 
-    # Checks if Game is Paused
-    if game_paused == True:
-        if resume_button.draw(screen):
-            game_paused = False
-    else:
-        display_text("Welcome to Sudoku!", font, BLACK, (WIDTH//3.175), 275)
+        for button in [EASY_BUTTON, MEDIUM_BUTTON, HARD_BUTTON]:
+            button.changeColor(MENU_MOUSE_POS)
+            button.update(SCREEN)
 
-    # Event Handler
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                game_paused = True
-        if event.type == pygame.QUIT:
-            run = False
+        SCREEN.blit(MENU_TEXT, MENU_TEXT_RECT)
+        SCREEN.blit(MENU_GAME_MODE, MENU_GAME_MODE_RECT)
 
-    pygame.display.update()
+        pygame.display.flip()
 
-pygame.quit()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if EASY_BUTTON.checkInput(MENU_MOUSE_POS):
+                    pass
+                if MEDIUM_BUTTON.checkInput(MENU_MOUSE_POS):
+                    pass
+                if HARD_BUTTON.checkInput(MENU_MOUSE_POS):
+                    pass
+
+        pygame.display.update()
+
+def win():
+    pass
+
+def lose():
+    pass
+
+if __name__ == "__main__":
+    main_menu()
