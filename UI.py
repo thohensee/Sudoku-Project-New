@@ -32,9 +32,9 @@ def main_menu():
         MENU_TEXT_RECT = MENU_TEXT.get_rect(center=(300, 75)) # Positions above text where desired
         MENU_GAME_MODE_RECT = MENU_GAME_MODE.get_rect(center=(300, 345)) # Positions above text where desired
 
-        EASY_BUTTON = Button(image=pygame.image.load("assets/button_shape.png"), pos=(100,425),
+        EASY_BUTTON = Button(image=pygame.image.load("assets/button_shape.png"), pos=(100, 425),
                              text_input="EASY", font=get_font(35), base_color=(0,0,0), hovering_color="Green") # Button for selecting easy difficulty
-        MEDIUM_BUTTON = Button(image=pygame.image.load("assets/button_shape.png"), pos=(300,425),
+        MEDIUM_BUTTON = Button(image=pygame.image.load("assets/button_shape.png"), pos=(300, 425),
                                text_input="MEDIUM", font=get_font(35), base_color=(0,0,0), hovering_color="Orange") # Button for selecting medium difficulty
         HARD_BUTTON = Button(image=pygame.image.load("assets/button_shape.png"), pos=(500, 425),
                              text_input="HARD", font=get_font(35), base_color=(0,0,0), hovering_color="Red") # Button for selecting hard difficulty
@@ -82,10 +82,10 @@ def win():
         WIN_TEXT = get_font(50).render("Game Won!", True, (0,0,0)) # Loads the winning message
         WIN_RECT = WIN_TEXT.get_rect(center=(300,100)) # Centers the winning message
 
-        WIN_EXIT = Button(image=pygame.image.load("assets/button_shape.png"), pos=(180,450),
+        WIN_EXIT = Button(image=pygame.image.load("assets/button_shape.png"), pos=(180, 450),
                           text_input="EXIT", font=get_font(35), base_color=(0,0,0), hovering_color="Red") # Button for exiting when on the winning screen
-        WIN_RESTART = Button(image=pygame.image.load("assets/button_shape.png"), pos=(420,450),
-                          text_input="RESTART", font=get_font(35), base_color=(0,0,0), hovering_color="Green") # Button for taking user to the main menu when on the winning screen
+        WIN_RESTART = Button(image=pygame.image.load("assets/button_shape.png"), pos=(420, 450),
+                             text_input="RESTART", font=get_font(35), base_color=(0,0,0), hovering_color="Green") # Button for taking user to the main menu when on the winning screen
 
         for button in [WIN_EXIT, WIN_RESTART]:
             button.changeColor(WIN_MOUSE_POS) # Makes the buttons' text change color when hovered over by mouse
@@ -123,9 +123,9 @@ def lose():
         LOSE_TEXT = get_font(50).render("Game over :(", True, (0,0,0)) # Loads the losing message
         LOSE_RECT = LOSE_TEXT.get_rect(center=(300,100)) # Centers the losing message
 
-        LOSE_RESTART = Button(image=pygame.image.load("assets/button_shape.png"), pos=(180,450),
+        LOSE_RESTART = Button(image=pygame.image.load("assets/button_shape.png"), pos=(180, 450),
                               text_input="RESTART", font=get_font(35), base_color=(0,0,0), hovering_color="Green") # Button for restarting
-        LOSE_EXIT = Button(image=pygame.image.load("assets/button_shape.png"), pos=(420,450),
+        LOSE_EXIT = Button(image=pygame.image.load("assets/button_shape.png"), pos=(420, 450),
                            text_input="EXIT", font=get_font(35), base_color=(0,0,0), hovering_color="Red") # Button for exiting program
 
         for button in [LOSE_RESTART, LOSE_EXIT]:
