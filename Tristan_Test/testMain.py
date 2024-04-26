@@ -1,6 +1,7 @@
 from pygame.locals import *
-from SudokuGenerator import *  # Import shuffle function from t_SudokuGenerator
-from Board import Board
+from testSudokuGenerator import *  # Import shuffle function from t_SudokuGenerator
+from testBoard import Board
+
 
 # Sudoku generating code
 base = 3

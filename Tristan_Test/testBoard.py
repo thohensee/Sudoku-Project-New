@@ -1,5 +1,5 @@
-from SudokuGenerator import *
-from SudokuGenerator import shuffle
+from testSudokuGenerator import *
+from testSudokuGenerator import shuffle
 import pygame
 class Board:
 
