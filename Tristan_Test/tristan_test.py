@@ -2,9 +2,12 @@
 
 # Current issues:
 # no win screen
-# overwriting generated squares is possible (it shouldn't be)
+# overwriting generated squares is possible (it shouldn't be) (DONE)
 # A lot of this stuff will have to be sorted into classes, but we can do that at the end
-# Might need a function to solve the board
+# Required sorting: SudokuGenerator, innit, get_board, print_board, valid_in_row, valid_in_col, valid_in_box, is_valid, fill_box, fill_diagonal, fill_remaining(self, row, col), fill_values, remove_cells,
+# This one is outside the SudokuGenerator class- generate_sudoku(size, removed)
+# Make different difficulties: easy= 30 empty cells, medium = 40 empty cells, hard = 50 empty cells
+# Might need a function to solve the board (DONE)
 
 
 
@@ -31,7 +34,7 @@ nums  = shuffle(range(1,base*base+1))
 
 board = [ [nums[pattern(r,c)] for c in cols] for r in rows ]
 
-#medium is squares * 1//2, easy is squares * 1//2.7, hard is squares * 2//3.2
+#medium is squares * 1//2, easy is squares * 1//2.7, hard is squares * 2//3.2 .
 squares = side*side
 empties = squares * 1//2
 #add difficulties
@@ -54,24 +57,6 @@ CELL_SIZE = WINDOW_SIZE[0] // side
 # Initialize the screen
 screen = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption("Sudoku")
-# Function to draw the Sudoku board
-def draw_board():
-    screen.fill(WHITE)
-    for i in range(side + 1):
-        if i % base == 0:
-            line_thickness = 11
-        else:
-            line_thickness = 5
-        pygame.draw.line(screen, BLACK, (i * CELL_SIZE, 0), (i * CELL_SIZE, WINDOW_SIZE[1]), line_thickness)
-        pygame.draw.line(screen, BLACK, (0, i * CELL_SIZE), (WINDOW_SIZE[0], i * CELL_SIZE), line_thickness)
-
-    font = pygame.font.Font(None, 36)
-    for i in range(side):
-        for j in range(side):
-            if board[i][j] != 0:
-                text_surface = font.render(str(board[i][j]), True, BLACK)
-                text_rect = text_surface.get_rect(center=(j * CELL_SIZE + CELL_SIZE // 2, i * CELL_SIZE + CELL_SIZE // 2))
-                screen.blit(text_surface, text_rect)
 
 running = True
 selected_row = None
@@ -182,5 +167,4 @@ while running:
 
 pygame.quit()
 sys.exit()
-
 
