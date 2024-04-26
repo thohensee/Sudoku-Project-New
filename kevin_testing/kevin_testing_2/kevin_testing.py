@@ -42,6 +42,10 @@ def main_menu():
         SCREEN.blit(MENU_TEXT, MENU_TEXT_RECT)
         SCREEN.blit(MENU_GAME_MODE, MENU_GAME_MODE_RECT)
 
+        image = pygame.image.load("assets/sudoku_image.png")
+        scaled_image = pygame.transform.scale(image, (200, 200))
+        SCREEN.blit(scaled_image, (215, 105))
+
         pygame.display.flip()
 
         for event in pygame.event.get():
