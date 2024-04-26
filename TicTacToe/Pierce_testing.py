@@ -57,7 +57,7 @@ def draw_board(board):
                 text_rect = text_surface.get_rect(center=(j * CELL_SIZE + CELL_SIZE // 2, i * CELL_SIZE + CELL_SIZE // 2))
                 screen.blit(text_surface, text_rect)
 
-# Difficulty levels
+# Difficulty levels RIGHT HEREEE
 EASY = 30
 MEDIUM = 40
 HARD = 50

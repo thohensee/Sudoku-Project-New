@@ -1,13 +1,13 @@
 
 
 # Current issues:
-# no win screen - done
-# overwriting generated squares is possible (it shouldn't be)
+# no win screen
+# overwriting generated squares is possible (it shouldn't be) (DONE)
 # A lot of this stuff will have to be sorted into classes, but we can do that at the end
 # Required sorting: SudokuGenerator, innit, get_board, print_board, valid_in_row, valid_in_col, valid_in_box, is_valid, fill_box, fill_diagonal, fill_remaining(self, row, col), fill_values, remove_cells,
 # This one is outside the SudokuGenerator class- generate_sudoku(size, removed)
 # Make different difficulties: easy= 30 empty cells, medium = 40 empty cells, hard = 50 empty cells
-# Might need a function to solve the board
+# Might need a function to solve the board (DONE)
 
 
 
