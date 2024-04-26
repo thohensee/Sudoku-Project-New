@@ -47,9 +47,45 @@ def main_menu():
                 if EASY_BUTTON.checkInput(MENU_MOUSE_POS):
                     win()
                 if MEDIUM_BUTTON.checkInput(MENU_MOUSE_POS):
-                    pass
+                    in_game()
                 if HARD_BUTTON.checkInput(MENU_MOUSE_POS):
                     lose()
+
+        pygame.display.update()
+
+def in_game():
+    while True:
+        IG_MOUSE_POS = pygame.mouse.get_pos()
+
+        og_button = pygame.image.load("assets/button_shape.png")
+
+        SCREEN.fill("white")
+
+        scaled_button = pygame.transform.scale(og_button,(100, 50))
+
+        IG_RESTART = Button(image=scaled_button, pos=(300,450),
+                            text_input="Restart", font=get_font(30), base_color=(0,0,0), hovering_color="Orange")
+        IG_EXIT = Button(image=scaled_button, pos=(400,450),
+                            text_input="Exit", font=get_font(30), base_color=(0,0,0), hovering_color="Red")
+        IG_RESET = Button(image=scaled_button, pos=(200, 450),
+                         text_input="Reset", font=get_font(30), base_color=(0, 0, 0), hovering_color="Green")
+
+        for button in [IG_RESTART, IG_EXIT, IG_RESET]:
+            button.changeColor(IG_MOUSE_POS)
+            button.update(SCREEN)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if IG_RESTART.checkInput(IG_MOUSE_POS):
+                    main_menu()
+                if IG_EXIT.checkInput(IG_MOUSE_POS):
+                    pygame.quit()
+                    sys.exit()
+                if IG_RESET.checkInput(IG_MOUSE_POS):
+                    pass
 
         pygame.display.update()
 
@@ -83,6 +119,8 @@ def win():
                     pygame.quit()
                     sys.exit()
 
+        pygame.display.update()
+
 def lose():
     while True:
         LOSE_MOUSE_POS = pygame.mouse.get_pos()
@@ -111,6 +149,8 @@ def lose():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if LOSE_RESTART.checkInput(LOSE_MOUSE_POS):
                     main_menu()
+
+        pygame.display.update()
 
 if __name__ == "__main__":
     main_menu()
