@@ -9,7 +9,7 @@ pygame.display.set_caption("Sudoku")
 BG = pygame.image.load("assets/sudoku_bg.png")
 
 def get_font(size):
-    return pygame.font.SysFont("palatinolinotype", size)
+    return pygame.font.Font("assets/palatinolinotype_italic.ttf", size)
 
 def main_menu():
     while True:
