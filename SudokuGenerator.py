@@ -1,40 +1,40 @@
-class SudokuGenerator:
-    def __init__(self, row_length, removed_cells):
-        self.row_length = row_length
-        self.removed_cells = removed_cells
-        self.board =
-        self.box_length = float(self.row_length) ** 0.5
-    def get_board(self):
+import sys
+import pygame
+from random import sample
 
+base = 3
+side = 9
 
-    def print_board(self):
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
 
+# Window size
+WINDOW_SIZE = (400, 400)
 
-    def valid_in_row(self, row, num):
+# Cell size
+CELL_SIZE = WINDOW_SIZE[0] // side
 
+def shuffle(s): return sample(s,len(s))
 
-    def valid_in_col(self, col, num):
+# Function to draw the Sudoku board
+def draw_board(screen, board):
+    screen.fill(WHITE)
+    for i in range(side + 1):
+        if i % base == 0:
+            line_thickness = 11
+        else:
+            line_thickness = 5
+        pygame.draw.line(screen, BLACK, (i * CELL_SIZE, 0), (i * CELL_SIZE, WINDOW_SIZE[1]), line_thickness)
+        pygame.draw.line(screen, BLACK, (0, i * CELL_SIZE), (WINDOW_SIZE[0], i * CELL_SIZE), line_thickness)
 
+    font = pygame.font.Font(None, 36)
+    for i in range(side):
+        for j in range(side):
+            if board.get_board()[i][j] != 0:
+                text_surface = font.render(str(board.get_board()[i][j]), True, BLACK)
+                text_rect = text_surface.get_rect(center=(j * CELL_SIZE + CELL_SIZE // 2, i * CELL_SIZE + CELL_SIZE // 2))
+                screen.blit(text_surface, text_rect)
 
-    def valid_in_box(self,row_start, col_start, num):
-
-
-    def is_valid(self, row, col, num):
-
-
-    def fill_box(self, row_start, col_start):
-
-
-    def fill_diagonal(self):
-
-
-    def fill_remaining(self, row, col):
-
-
-    def fill_values(self):
-
-
-    def remove_cells(self):
-
-
-def generate_sudoku(size, removed):
+def pattern(r, c): return (base * (r % base) + r // base + c) % side
+# this is where the different difficulties might come in
