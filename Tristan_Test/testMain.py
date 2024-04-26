@@ -48,7 +48,7 @@ while running:
             selected_col = mouse_pos[0] // CELL_SIZE
         elif event.type == KEYDOWN:
             nonChange = board.get_nonChange()
-            if board.get_board()[selected_row][selected_col] == 0:
+            if nonChange[selected_row][selected_col] == 0:
                 if event.key == K_1 or event.key == K_KP1:
                     if selected_row is not None and selected_col is not None:
                         board.get_board()[selected_row][selected_col] = 1
