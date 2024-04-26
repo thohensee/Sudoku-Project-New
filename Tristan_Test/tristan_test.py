@@ -34,9 +34,8 @@ nums  = shuffle(range(1,base*base+1))
 
 board = [ [nums[pattern(r,c)] for c in cols] for r in rows ]
 
-#medium is squares * 1//2, easy is squares * 1//2.7, hard is squares * 2//3.2
 squares = side*side
-empties = squares * 1//2
+empties = squares * 3//4
 #add difficulties
 for p in sample(range(squares),empties):
     board[p//side][p%side] = 0
@@ -57,6 +56,24 @@ CELL_SIZE = WINDOW_SIZE[0] // side
 # Initialize the screen
 screen = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption("Sudoku")
+# Function to draw the Sudoku board
+def draw_board():
+    screen.fill(WHITE)
+    for i in range(side + 1):
+        if i % base == 0:
+            line_thickness = 11
+        else:
+            line_thickness = 5
+        pygame.draw.line(screen, BLACK, (i * CELL_SIZE, 0), (i * CELL_SIZE, WINDOW_SIZE[1]), line_thickness)
+        pygame.draw.line(screen, BLACK, (0, i * CELL_SIZE), (WINDOW_SIZE[0], i * CELL_SIZE), line_thickness)
+
+    font = pygame.font.Font(None, 36)
+    for i in range(side):
+        for j in range(side):
+            if board[i][j] != 0:
+                text_surface = font.render(str(board[i][j]), True, BLACK)
+                text_rect = text_surface.get_rect(center=(j * CELL_SIZE + CELL_SIZE // 2, i * CELL_SIZE + CELL_SIZE // 2))
+                screen.blit(text_surface, text_rect)
 
 running = True
 selected_row = None
@@ -124,23 +141,6 @@ testBoard = [[5, 3, 4, 6, 7, 8, 9, 1, 2],
              [2, 8, 7, 4, 1, 9, 6, 3, 5],
              [3, 4, 5, 2, 8, 6, 1, 7, 9]]
 
-def draw_board():
-    screen.fill(WHITE)
-    for i in range(side + 1):
-        if i % base == 0:
-            line_thickness = 11
-        else:
-            line_thickness = 5
-        pygame.draw.line(screen, BLACK, (i * CELL_SIZE, 0), (i * CELL_SIZE, WINDOW_SIZE[1]), line_thickness)
-        pygame.draw.line(screen, BLACK, (0, i * CELL_SIZE), (WINDOW_SIZE[0], i * CELL_SIZE), line_thickness)
-
-    font = pygame.font.Font(None, 36)
-    for i in range(side):
-        for j in range(side):
-            if board[i][j] != 0:
-                text_surface = font.render(str(board[i][j]), True, BLACK)
-                text_rect = text_surface.get_rect(center=(j * CELL_SIZE + CELL_SIZE // 2, i * CELL_SIZE + CELL_SIZE // 2))
-                screen.blit(text_surface, text_rect)
 while running:
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -184,4 +184,3 @@ while running:
 
 pygame.quit()
 sys.exit()
-
