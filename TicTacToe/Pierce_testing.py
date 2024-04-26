@@ -1,34 +1,28 @@
-import pygame
-import sys
-from pygame.locals import *
+base = 3
+side = base * base
 
-# Sudoku generating code
-base  = 3
-side  = base*base
-
-
-def pattern(r,c): return (base*(r%base)+r//base+c)%side
-#this is where the different difficulties might come in
+def pattern(r, c): return (base * (r % base) + r // base + c) % side
 
 from random import sample
 
-def shuffle(s): return sample(s,len(s))
+def shuffle(s): return sample(s, len(s))
 
 rBase = range(base)
-rows  = [ g*base + r for g in shuffle(rBase) for r in shuffle(rBase) ]
-cols  = [ g*base + c for g in shuffle(rBase) for c in shuffle(rBase) ]
-nums  = shuffle(range(1,base*base+1))
+rows = [g * base + r for g in shuffle(rBase) for r in shuffle(rBase)]
+cols = [g * base + c for g in shuffle(rBase) for c in shuffle(rBase)]
+nums = shuffle(range(1, base * base + 1))
 
-board = [ [nums[pattern(r,c)] for c in cols] for r in rows ]
+def generate_board(difficulty):
+    board = [[nums[pattern(r, c)] for c in cols] for r in rows]
+    squares = side * side
+    empties = difficulty
+    for p in sample(range(squares), empties):
+        board[p // side][p % side] = 0
+    return board
 
-squares = side*side
-empties = squares * 3//4
-#add difficulties
-for p in sample(range(squares),empties):
-    board[p//side][p%side] = 0
-
-# Pygame initialization
-pygame.init()
+import pygame
+import sys
+from pygame.locals import *
 
 # Colors
 WHITE = (255, 255, 255)
@@ -41,10 +35,11 @@ WINDOW_SIZE = (400, 400)
 CELL_SIZE = WINDOW_SIZE[0] // side
 
 # Initialize the screen
+pygame.init()
 screen = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption("Sudoku")
-# Function to draw the Sudoku board
-def draw_board():
+
+def draw_board(board):
     screen.fill(WHITE)
     for i in range(side + 1):
         if i % base == 0:
@@ -61,6 +56,12 @@ def draw_board():
                 text_surface = font.render(str(board[i][j]), True, BLACK)
                 text_rect = text_surface.get_rect(center=(j * CELL_SIZE + CELL_SIZE // 2, i * CELL_SIZE + CELL_SIZE // 2))
                 screen.blit(text_surface, text_rect)
+
+# Difficulty levels
+EASY = 30
+MEDIUM = 40
+HARD = 50
+board = generate_board(HARD)
 
 running = True
 selected_row = None
@@ -101,11 +102,5 @@ while running:
             elif event.key == K_9 or event.key == K_KP9:
                 if selected_row is not None and selected_col is not None:
                     board[selected_row][selected_col] = 9
-    draw_board()
+    draw_board(board)
     pygame.display.update()
-
-
-pygame.quit()
-sys.exit()
-
-

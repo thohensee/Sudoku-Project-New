@@ -1,7 +1,7 @@
 
 
 # Current issues:
-# no win screen
+# no win screen - done
 # overwriting generated squares is possible (it shouldn't be)
 # A lot of this stuff will have to be sorted into classes, but we can do that at the end
 # Required sorting: SudokuGenerator, innit, get_board, print_board, valid_in_row, valid_in_col, valid_in_box, is_valid, fill_box, fill_diagonal, fill_remaining(self, row, col), fill_values, remove_cells,
