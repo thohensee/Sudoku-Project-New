@@ -81,7 +81,7 @@ class Main:
                         elif event.key == K_9 or event.key == K_KP9:
                             if selected_row is not None and selected_col is not None:
                                 board.get_board()[selected_row][selected_col] = 9
-            draw_board(screen, board)
+            draw_board(screen, board, nonChange)
             pygame.display.flip()
 
             if board.isFull():
