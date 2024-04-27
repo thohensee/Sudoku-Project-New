@@ -4,7 +4,7 @@ from testBoard import Board
 
 class Main:
     @staticmethod
-    def game(board, new_game=True):
+    def game(board):
         # Sudoku generating code
         running = True
         base = 3
@@ -26,12 +26,16 @@ class Main:
 
 
 
-        # #medium is squares * 1//2, easy is squares * 1//2.7, hard is squares * 2//3.2 .
-        # squares = side*side
-        # empties = squares * 1//2
-        # #add difficulties
-        # for p in sample(range(squares), empties):
-        #     board.set_board(p//side, p % side, 0)
+        #medium is squares * 1//2, easy is squares * 1//2.7, hard is squares * 2//3.2 .
+        squares = side*side
+        empties = squares * 1//2
+        #empties = 2
+        #add difficulties
+        for p in sample(range(squares), empties):
+            board.set_board(p//side, p % side, 0)
+
+        # Separate changeable cells from non-changeable cells
+        nonChange = board.nonChange()
 
         # Initialize the screen
         screen = pygame.display.set_mode(WINDOW_SIZE)
@@ -49,7 +53,6 @@ class Main:
                     selected_row = mouse_pos[1] // CELL_SIZE
                     selected_col = mouse_pos[0] // CELL_SIZE
                 elif event.type == KEYDOWN:
-                    nonChange = board.get_nonChange()
                     if nonChange[selected_row][selected_col] == 0:
                         if event.key == K_1 or event.key == K_KP1:
                             if selected_row is not None and selected_col is not None:
@@ -85,12 +88,13 @@ class Main:
                 if board.isCorrect():
                     print('you win')
                     running = False
+                    board = Board(3, 9)
+                    Main.game(board)
                 else:
                     print("YOU SUCK")
 
-def play_game():
-    board = Board(base, side)
-    Main.game(board)
+
 
 if __name__ == '__main__':
-    play_game()
+    board = Board(3, 9)
+    Main.game(board)

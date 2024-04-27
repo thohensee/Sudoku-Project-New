@@ -1,6 +1,3 @@
-# SUDOKUGENERATOR
-
-import sys
 import pygame
 from random import sample
 
@@ -12,7 +9,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 # Window size
-WINDOW_SIZE = (550, 550)
+WINDOW_SIZE = (400, 400)
 
 # Cell size
 CELL_SIZE = WINDOW_SIZE[0] // side
