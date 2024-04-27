@@ -6,7 +6,7 @@ from SudokuGenerator import SudokuGenerator
 # Initializes pygame modules
 pygame.init()
 
-# Sets display size to 600x600
+# Sets display size to 540x600
 SCREEN = pygame.display.set_mode((540, 600))
 FPS = 30
 clock = pygame.time.Clock()
@@ -62,14 +62,14 @@ def main_menu():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN: # Checks if button is pressed
-                if EASY_BUTTON.checkInput(MENU_MOUSE_POS): # Takes user to easy difficulty when selected
-                    in_game()
-                if MEDIUM_BUTTON.checkInput(MENU_MOUSE_POS): # Takes user to medium difficulty when selected
-                    in_game()
-                if HARD_BUTTON.checkInput(MENU_MOUSE_POS): # Takes user to hard difficulty when selected
-                    in_game()
-                if EXIT_BUTTON.checkInput(MENU_MOUSE_POS): # Exits the program when selected
+            if event.type == pygame.MOUSEBUTTONDOWN:  # Checks if button is pressed
+                if EASY_BUTTON.checkInput(MENU_MOUSE_POS):  # Takes user to easy difficulty when selected
+                    in_game(30)  # Pass difficulty level to in_game function
+                elif MEDIUM_BUTTON.checkInput(MENU_MOUSE_POS):  # Takes user to medium difficulty when selected
+                    in_game(40)  # Pass difficulty level to in_game function
+                elif HARD_BUTTON.checkInput(MENU_MOUSE_POS):  # Takes user to hard difficulty when selected
+                    in_game(50)  # Pass difficulty level to in_game function
+                elif EXIT_BUTTON.checkInput(MENU_MOUSE_POS):  # Exits the program when selected
                     pygame.quit()
                     sys.exit()
 
@@ -222,41 +222,45 @@ def is_valid_box(row_start, col_start):
 
 def generate_new_board():
     global board, original_board
-    sudoku = SudokuGenerator(row_length=9, removed_cells=1)
+    sudoku = SudokuGenerator(row_length=9, removed_cells=30)
     board = sudoku.get_board()
     original_board = [row[:] for row in board]  # Create a copy of the board
 
 # Function for displaying buttons when in game
-def in_game():
-    global selected
+# Function for displaying buttons when in game
+def in_game(difficulty):
+    global selected, board, original_board
+    sudoku = SudokuGenerator(row_length=9, removed_cells=difficulty)
+    board = sudoku.get_board()
+    original_board = [row[:] for row in board]
     while True:
-        IG_MOUSE_POS = pygame.mouse.get_pos() # Tracks mouse only when in game
+        IG_MOUSE_POS = pygame.mouse.get_pos()  # Tracks mouse only when in the game
 
-        og_button = pygame.image.load("assets/button_shape.png") # Loads original button
+        og_button = pygame.image.load("assets/button_shape.png")  # Loads original button
 
-        SCREEN.fill("white") # Sets the background as white
+        SCREEN.fill("white")  # Sets the background as white
 
-        scaled_button = pygame.transform.scale(og_button,(100, 50)) # Scales button images down so they don't take up too much space
+        scaled_button = pygame.transform.scale(og_button, (100, 50))  # Scales button images down so they don't take up too much space
 
-        IG_RESTART = Button(image=scaled_button, pos=(270,570),
-                            text_input="Restart", font=get_font(30), base_color=(0,0,0), hovering_color="Orange") # Button for restarting
-        IG_EXIT = Button(image=scaled_button, pos=(405,570),
-                            text_input="Exit", font=get_font(30), base_color=(0,0,0), hovering_color="Red") # Button for exiting program
+        IG_RESTART = Button(image=scaled_button, pos=(270, 570),
+                            text_input="Restart", font=get_font(30), base_color=(0, 0, 0), hovering_color="Orange")  # Button for restarting
+        IG_EXIT = Button(image=scaled_button, pos=(405, 570),
+                         text_input="Exit", font=get_font(30), base_color=(0, 0, 0), hovering_color="Red")  # Button for exiting program
         IG_RESET = Button(image=scaled_button, pos=(135, 570),
-                         text_input="Reset", font=get_font(30), base_color=(0, 0, 0), hovering_color="Green") # Button for resetting sudoku board
+                          text_input="Reset", font=get_font(30), base_color=(0, 0, 0), hovering_color="Green")  # Button for resetting the sudoku board
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN: # Checks if button is pressed
-                if IG_RESTART.checkInput(IG_MOUSE_POS): # If restart button is pressed, user is taken back to main menu
+            if event.type == pygame.MOUSEBUTTONDOWN:  # Checks if button is pressed
+                if IG_RESTART.checkInput(IG_MOUSE_POS):  # If restart button is pressed, the user is taken back to the main menu
                     generate_new_board()
                     main_menu()
-                if IG_EXIT.checkInput(IG_MOUSE_POS): # If exit button is pressed, the program is closed
+                if IG_EXIT.checkInput(IG_MOUSE_POS):  # If exit button is pressed, the program is closed
                     pygame.quit()
                     sys.exit()
-                if IG_RESET.checkInput(IG_MOUSE_POS): # If reset button is pressed, the sudoku board is reset to its initial state
+                if IG_RESET.checkInput(IG_MOUSE_POS):  # If reset button is pressed, the sudoku board is reset to its initial state
                     clear_user_input()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos = pygame.mouse.get_pos()
@@ -284,10 +288,11 @@ def in_game():
 
         draw_board()
         for button in [IG_RESTART, IG_EXIT, IG_RESET]:
-            button.changeColor(IG_MOUSE_POS) # Makes the buttons' text change color when hovered over by mouse
+            button.changeColor(IG_MOUSE_POS)  # Makes the buttons' text change color when hovered over by mouse
             button.update(SCREEN)
         pygame.display.flip()
         clock.tick(FPS)
+
 
 if __name__ == "__main__":
     main_menu()
