@@ -6,7 +6,7 @@ from SudokuGenerator import SudokuGenerator
 # Initializes pygame modules
 pygame.init()
 
-# Sets display size to 540x600
+# Sets display size to 600x600
 SCREEN = pygame.display.set_mode((540, 600))
 FPS = 30
 clock = pygame.time.Clock()
