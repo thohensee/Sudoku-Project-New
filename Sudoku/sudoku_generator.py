@@ -81,9 +81,3 @@ class SudokuGenerator: # Constructor
 def generate_sudoku(size, removed): # Generates sudoku with given size and number of removed cells
     sudoku = SudokuGenerator(size, removed)
     return sudoku.get_board()
-
-# Example
-if __name__ == "__main__":
-    sudoku_board = generate_sudoku(9, 40)  # 9x9 board with 81 cells, 40 removed
-    for row in sudoku_board:
-        print(row)
