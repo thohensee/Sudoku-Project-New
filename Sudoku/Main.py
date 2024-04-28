@@ -1,16 +1,16 @@
 # Imports pygame and Button class
 import pygame, sys
 from button import Button
-from SudokuGenerator import SudokuGenerator
+from sudoku_generator import SudokuGenerator
 
 # Initializes pygame modules
 pygame.init()
 
 # Sets display size to 540x600
 SCREEN = pygame.display.set_mode((540, 600))
-FPS = 30
+FPS = 30 # Sets FPS to 30
 clock = pygame.time.Clock()
-selected = (0, 0)
+selected = (0, 0) # Determines original starting point of sudoku, the top left
 pygame.display.set_caption("Sudoku") # Captions the window as "Sudoku"
 
 # Loads menu background
@@ -112,7 +112,7 @@ def win():
                     pygame.quit()
                     sys.exit()
                 if WIN_RESTART.checkInput(WIN_MOUSE_POS): # If restart button is selected, it takes user back to main menu
-                    generate_new_board()
+                    generate_new_board() # Generates new board for future Sudoku game
                     main_menu()
 
         pygame.display.update() # Refreshes display
@@ -151,7 +151,7 @@ def lose():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN: # Checks if button is pressed
                 if LOSE_RESTART.checkInput(LOSE_MOUSE_POS): # If restart button is pressed, the user is taken back to the main menu
-                    generate_new_board()
+                    generate_new_board() # Generates new board for future Sudoku game
                     main_menu()
                 if LOSE_EXIT.checkInput(LOSE_MOUSE_POS): # If exit button is pressed, the program is closed
                     pygame.quit()
@@ -159,7 +159,7 @@ def lose():
 
         pygame.display.update() # Refreshes display
 
-sudoku = SudokuGenerator(row_length=9, removed_cells=30)
+sudoku = SudokuGenerator(row_length=9, removed_cells=30) # Initializes default sudoku
 board = sudoku.get_board()
 original_board = [row[:] for row in board]  # Create a copy of the board
 
@@ -182,55 +182,53 @@ def draw_board():
     pygame.draw.rect(SCREEN, "red", pygame.Rect(selected[1] * 60, selected[0] * 60, 60, 60), 3)
 
 def update_cell(row, col, num):
-    # Check if the cell indices are within bounds
-    if 0 <= row < 9 and 0 <= col < 9:
+    if 0 <= row < 9 and 0 <= col < 9: # Ensures user stays within bounds
         if original_board[row][col] == 0:  # Check if cell is user-inputted
             board[row][col] = num
-            if is_board_complete():
+            if is_board_complete(): # Checks if board is complete properly
                 check_board_validity()
 
-def clear_user_input():
+def clear_user_input(): # Clears user input for reset button
     for row in range(9):
         for col in range(9):
             if original_board[row][col] == 0:
                 board[row][col] = 0
 
-def is_board_complete():
+def is_board_complete(): # Checks if board is complete
     for row in board:
         if 0 in row:
             return False
     return True
 
-def check_board_validity():
+def check_board_validity(): # Checks board validity
     # Check rows, columns, and boxes for validity
     for i in range(9):
         if not is_valid_row(i) or not is_valid_col(i) or not is_valid_box(i // 3 * 3, i % 3 * 3):
-            lose()
+            lose() # Takes user to losing screen if not valid
             return
-    win()
+    win() # Takes user to winning screen if valid
 
-def is_valid_row(row):
+def is_valid_row(row): # Checks if row placement is valid
     return len(set(board[row])) == 9
 
-def is_valid_col(col):
+def is_valid_col(col): # Checks if column placement is valid
     col_vals = [board[row][col] for row in range(9)]
     return len(set(col_vals)) == 9
 
-def is_valid_box(row_start, col_start):
+def is_valid_box(row_start, col_start): # Checks box validity
     box_vals = [board[i][j] for i in range(row_start, row_start + 3) for j in range(col_start, col_start + 3)]
     return len(set(box_vals)) == 9
 
-def generate_new_board():
+def generate_new_board(): # Generates new default board when restart button is pressed
     global board, original_board
     sudoku = SudokuGenerator(row_length=9, removed_cells=30)
     board = sudoku.get_board()
     original_board = [row[:] for row in board]  # Create a copy of the board
 
-# Function for displaying buttons when in game
-# Function for displaying buttons when in game
+# Function for displaying buttons and game functionality
 def in_game(difficulty):
     global selected, board, original_board
-    sudoku = SudokuGenerator(row_length=9, removed_cells=difficulty)
+    sudoku = SudokuGenerator(row_length=9, removed_cells=difficulty) # Number of removed cells is determined by difficulty selected in main menu
     board = sudoku.get_board()
     original_board = [row[:] for row in board]
     while True:
@@ -255,19 +253,19 @@ def in_game(difficulty):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:  # Checks if button is pressed
                 if IG_RESTART.checkInput(IG_MOUSE_POS):  # If restart button is pressed, the user is taken back to the main menu
-                    generate_new_board()
+                    generate_new_board() # Generates new board for future sudoku game
                     main_menu()
                 if IG_EXIT.checkInput(IG_MOUSE_POS):  # If exit button is pressed, the program is closed
                     pygame.quit()
                     sys.exit()
                 if IG_RESET.checkInput(IG_MOUSE_POS):  # If reset button is pressed, the sudoku board is reset to its initial state
                     clear_user_input()
-                elif event.type == pygame.MOUSEBUTTONDOWN:
+                elif event.type == pygame.MOUSEBUTTONDOWN: # Ensures user cannot select cells that are out-of-bounds
                     mouse_pos = pygame.mouse.get_pos()
                     row = mouse_pos[1] // 60
                     col = mouse_pos[0] // 60
                     selected = (min(max(row, 0), 8), min(max(col, 0), 8))
-            elif event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN: # Allows user to use arrow keys to move between cells
                 if event.key == pygame.K_UP:
                     selected = (max(selected[0] - 1, 0), selected[1])
                 elif event.key == pygame.K_DOWN:
@@ -276,21 +274,21 @@ def in_game(difficulty):
                     selected = (selected[0], max(selected[1] - 1, 0))
                 elif event.key == pygame.K_RIGHT:
                     selected = (selected[0], min(selected[1] + 1, 8))
-                elif event.key == pygame.K_r:
+                elif event.key == pygame.K_r: # Resets board to initial state, identical to reset button
                     clear_user_input()
                 elif event.type == pygame.KEYDOWN:
                     if selected:
                         key = event.unicode
                         if key.isdigit():
                             update_cell(selected[0], selected[1], int(key))
-                        elif key == '\x08':  # Backspace key
+                        elif key == '\x08':  # Clears a specific cell, returing 0/empty
                             update_cell(selected[0], selected[1], 0)
 
-        draw_board()
-        for button in [IG_RESTART, IG_EXIT, IG_RESET]:
+        draw_board() # Draws board
+        for button in [IG_RESTART, IG_EXIT, IG_RESET]: # Ensures buttons are always displayed
             button.changeColor(IG_MOUSE_POS)  # Makes the buttons' text change color when hovered over by mouse
             button.update(SCREEN)
-        pygame.display.flip()
+        pygame.display.flip() # Updates display
         clock.tick(FPS)
 
 
