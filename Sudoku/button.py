@@ -1,4 +1,4 @@
-# Credits to baraltech on YouTube and GitHub for the tutorial of this Button class
+# Credits to baraltech on YouTube/GitHub for the tutorial of this Button class
 class Button():
     def __init__(self, image, pos, text_input, font, base_color, hovering_color):
         self.image = image # Variable for the image to be displayed as button
